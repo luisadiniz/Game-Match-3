@@ -6,15 +6,14 @@ public class Board : MonoBehaviour
 {
     [SerializeField] private int width;
     [SerializeField] private int height;
-    [SerializeField] private List<Stone> _stonesList;
+    [SerializeField] private List<GameObject> _stonesList;
     [SerializeField] private GameObject _stonePrefab;
     [SerializeField] private Transform _canvas;
-    [SerializeField] private Stone _stonesScript;
     [SerializeField] private int _distanceBetweenStones;
 
     void Start()
     {
-        _stonesList = new List<Stone>();
+        _stonesList = new List<GameObject>();
         CreateBoard();
     }
 
