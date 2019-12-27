@@ -394,7 +394,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1594272294}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -92, y: -163.5, z: 0}
+  m_LocalPosition: {x: 45, y: 50, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1383846826}
@@ -417,7 +417,5 @@ MonoBehaviour:
   _stonesList: []
   _stonePrefab: {fileID: 7058752793792499331, guid: d002ff02f5a312a4f805b3e8ac79073e,
     type: 3}
-  _canvas: {fileID: 1383846826}
-  _stonesScript: {fileID: 8835947106697958987, guid: d002ff02f5a312a4f805b3e8ac79073e,
-    type: 3}
+  _board: {fileID: 1594272295}
   _distanceBetweenStones: 4

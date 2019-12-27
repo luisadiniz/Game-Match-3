@@ -8,7 +8,7 @@ public class Board : MonoBehaviour
     [SerializeField] private int height;
     [SerializeField] private List<GameObject> _stonesList;
     [SerializeField] private GameObject _stonePrefab;
-    [SerializeField] private Transform _canvas;
+    [SerializeField] private Transform _board;
     [SerializeField] private int _distanceBetweenStones;
 
     void Start()
@@ -26,8 +26,11 @@ public class Board : MonoBehaviour
         {
             for (int j = 0; j < height; j++)
             {
-                Vector2 position = new Vector2(i * (newStoneWidth + _distanceBetweenStones), j * (newStoneHeight + _distanceBetweenStones));
-                Instantiate(_stonePrefab, position, Quaternion.identity,_canvas);
+                Vector3 position = new Vector3(i * (newStoneWidth + _distanceBetweenStones), j * (newStoneHeight + _distanceBetweenStones));
+
+                position = _board.transform.localPosition + position;
+
+                Instantiate(_stonePrefab, position, Quaternion.identity, _board);
             }
         }
     }
