@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public class Board : MonoBehaviour
 {
@@ -74,11 +75,15 @@ public class Board : MonoBehaviour
         if (_selectedStones[0].PosX == _selectedStones[1].PosX && ((_selectedStones[0].PosY == (_selectedStones[0].PosY++)) || (_selectedStones[0].PosY == (_selectedStones[0].PosY--))))
         {
             Debug.Log("Peças podem ser trocadas");
+
+            SwapStones();
         }
 
         else if (_selectedStones[0].PosY == _selectedStones[1].PosY && ((_selectedStones[0].PosX == (_selectedStones[0].PosX++)) || (_selectedStones[0].PosX == (_selectedStones[0].PosX--))))
         {
             Debug.Log("Peças podem ser trocadas");
+
+            SwapStones();
         }
 
         else
@@ -86,6 +91,14 @@ public class Board : MonoBehaviour
             Debug.Log("Peças não podem ser trocadas");
         }
 
+    }
 
+    private void SwapStones()
+    {
+        Vector3 firstStonePosition = new Vector3(_selectedStones[1].transform.position.x, _selectedStones[1].transform.position.y);
+        _selectedStones[0].transform.DOMove(firstStonePosition, 0.5f, false);
+
+        Vector3 secondStonePosition = new Vector3(_selectedStones[0].transform.position.x, _selectedStones[0].transform.position.y);
+        _selectedStones[1].transform.DOMove(secondStonePosition, 0.5f, false);
     }
 }
