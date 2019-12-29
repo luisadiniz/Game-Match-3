@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -16,6 +17,10 @@ public class Stone : MonoBehaviour
 
     private Colours _currentColour;
     private Color _color;
+    public Action<Stone> OnStoneSelected;
+
+    public int PosX { get; set; }
+    public int PosY { get; set; }
 
     private void Start()
     {
@@ -24,7 +29,7 @@ public class Stone : MonoBehaviour
 
     public Color SetColourRange()
     {
-        int sortedNumber = Random.Range(0, Colours.GetNames(typeof(Colours)).Length);
+        int sortedNumber = UnityEngine.Random.Range(0, Colours.GetNames(typeof(Colours)).Length);
         _currentColour = (Colours)sortedNumber;
 
         switch (_currentColour)
@@ -49,12 +54,16 @@ public class Stone : MonoBehaviour
         return _color; 
     }
 
-    void TintStones()
+    private void TintStones()
     {
         Image image = this.gameObject.GetComponent<Image>();
         image.color = SetColourRange();
     }
 
+    public void OnSelected(Stone stone)
+    {
+        OnStoneSelected?.Invoke(stone);
+    }
 
 
 }
