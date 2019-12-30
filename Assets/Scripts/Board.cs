@@ -100,5 +100,8 @@ public class Board : MonoBehaviour
 
         Vector3 secondStonePosition = new Vector3(_selectedStones[0].transform.position.x, _selectedStones[0].transform.position.y);
         _selectedStones[1].transform.DOMove(secondStonePosition, 0.5f, false);
+
+        _selectedStones[0].PosX = _selectedStones[1].PosX;
+        _selectedStones[0].PosY = _selectedStones[1].PosY;
     }
 }
