@@ -16,7 +16,6 @@ public class Board : MonoBehaviour
 
     private void Start()
     {
-        _stonesList = new List<GameObject>();
         _selectedStones = new List<Stone>();
         CreateBoard();
     }
@@ -106,5 +105,6 @@ public class Board : MonoBehaviour
     private void CheckCombinations()
     {
         
+
     }
 }
