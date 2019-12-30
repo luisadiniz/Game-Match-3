@@ -8,7 +8,6 @@ public class Board : MonoBehaviour
 {
     [SerializeField] private int width;
     [SerializeField] private int height;
-    [SerializeField] private List<GameObject> _stonesList;
     [SerializeField] private GameObject _stonePrefab;
     [SerializeField] private Transform _board;
     [SerializeField] private int _distanceBetweenStones;
@@ -39,7 +38,6 @@ public class Board : MonoBehaviour
                 Vector3 position = new Vector3(i * (newStoneWidth + _distanceBetweenStones), j * (newStoneHeight + _distanceBetweenStones));
                 position = _board.transform.localPosition + position;
                 GameObject newStone = Instantiate(_stonePrefab, position, Quaternion.identity, _board);
-                _stonesList.Add(newStone);
 
                 Stone stoneScript = newStone.GetComponent<Stone>();
                 stoneScript.PosX = i;
@@ -72,14 +70,14 @@ public class Board : MonoBehaviour
     private void CompareSelectedStones()
     {
 
-        if (_selectedStones[0].PosX == _selectedStones[1].PosX && ((_selectedStones[0].PosY == (_selectedStones[0].PosY++)) || (_selectedStones[0].PosY == (_selectedStones[0].PosY--))))
+        if (_selectedStones[0].PosX == _selectedStones[1].PosX && ((_selectedStones[0].PosY == _selectedStones[1].PosY + 1) || (_selectedStones[0].PosY == _selectedStones[1].PosY - 1)))
         {
             Debug.Log("Peças podem ser trocadas");
 
             SwapStones();
         }
 
-        else if (_selectedStones[0].PosY == _selectedStones[1].PosY && ((_selectedStones[0].PosX == (_selectedStones[0].PosX++)) || (_selectedStones[0].PosX == (_selectedStones[0].PosX--))))
+        else if (_selectedStones[0].PosY == _selectedStones[1].PosY && ((_selectedStones[0].PosX == (_selectedStones[1].PosX + 1)) || (_selectedStones[0].PosX == (_selectedStones[1].PosX - 1))))
         {
             Debug.Log("Peças podem ser trocadas");
 
@@ -103,5 +101,10 @@ public class Board : MonoBehaviour
 
         _selectedStones[0].PosX = _selectedStones[1].PosX;
         _selectedStones[0].PosY = _selectedStones[1].PosY;
+    }
+
+    private void CheckCombinations()
+    {
+        
     }
 }
