@@ -21,13 +21,14 @@ public class Stone : MonoBehaviour
 
     public int PosX { get; set; }
     public int PosY { get; set; }
+    public Color Color { get { return _color;}}
 
     private void Start()
     {
         TintStones();
     }
 
-    public Color SetColourRange()
+    public Color SetRandomColor()
     {
         int sortedNumber = UnityEngine.Random.Range(0, Colours.GetNames(typeof(Colours)).Length);
         _currentColour = (Colours)sortedNumber;
@@ -57,7 +58,7 @@ public class Stone : MonoBehaviour
     private void TintStones()
     {
         Image image = this.gameObject.GetComponent<Image>();
-        image.color = SetColourRange();
+        image.color = SetRandomColor();
     }
 
     public void OnSelected(Stone stone)

@@ -13,16 +13,12 @@ public class Board : MonoBehaviour
     [SerializeField] private int _distanceBetweenStones;
 
     private List<Stone> _selectedStones;
+    private string _swapDirection;
 
     private void Start()
     {
         _selectedStones = new List<Stone>();
         CreateBoard();
-    }
-
-    private void Update()
-    {
-        
     }
 
     private void CreateBoard()
@@ -52,34 +48,27 @@ public class Board : MonoBehaviour
         {
             _selectedStones.Add(stone);
         }
-        else
-        {
-            _selectedStones.Clear();
-            _selectedStones.Add(stone);
-        }
-
+        
         if (_selectedStones.Count == 2)
         {
             CompareSelectedStones();
         }
-
-
     }
 
     private void CompareSelectedStones()
     {
 
-        if (_selectedStones[0].PosX == _selectedStones[1].PosX && ((_selectedStones[0].PosY == _selectedStones[1].PosY + 1) || (_selectedStones[0].PosY == _selectedStones[1].PosY - 1)))
+        if (_selectedStones[0].PosX == _selectedStones[1].PosX && (Mathf.Abs(_selectedStones[0].PosY - _selectedStones[1].PosY) == 1))
         {
             Debug.Log("Peças podem ser trocadas");
-
+            _swapDirection = "vertical";
             SwapStones();
         }
 
-        else if (_selectedStones[0].PosY == _selectedStones[1].PosY && ((_selectedStones[0].PosX == (_selectedStones[1].PosX + 1)) || (_selectedStones[0].PosX == (_selectedStones[1].PosX - 1))))
+        else if (_selectedStones[0].PosY == _selectedStones[1].PosY && (Mathf.Abs(_selectedStones[0].PosX - _selectedStones[1].PosX) == 1))
         {
             Debug.Log("Peças podem ser trocadas");
-
+            _swapDirection = "horizontal";
             SwapStones();
         }
 
@@ -87,7 +76,7 @@ public class Board : MonoBehaviour
         {
             Debug.Log("Peças não podem ser trocadas");
         }
-
+        _selectedStones.Clear();
     }
 
     private void SwapStones()
@@ -98,13 +87,29 @@ public class Board : MonoBehaviour
         Vector3 secondStonePosition = new Vector3(_selectedStones[0].transform.position.x, _selectedStones[0].transform.position.y);
         _selectedStones[1].transform.DOMove(secondStonePosition, 0.5f, false);
 
+        int tempPosX = _selectedStones[0].PosX;
+        int tempPosY = _selectedStones[0].PosY;
         _selectedStones[0].PosX = _selectedStones[1].PosX;
         _selectedStones[0].PosY = _selectedStones[1].PosY;
+
+        _selectedStones[1].PosX = tempPosX;
+        _selectedStones[1].PosY = tempPosY;
     }
 
     private void CheckCombinations()
     {
-        
+        if (_swapDirection == "vertical")
+        {
+            
+        }
+        else if (_swapDirection == "horizontal")
+        {
+
+        }
+        else
+        {
+            //devolver peças pro lugar original
+        }
 
     }
 }
