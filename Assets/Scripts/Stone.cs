@@ -15,8 +15,12 @@ public class Stone : MonoBehaviour
         Green
     }
 
+    [SerializeField] private Image _image;
+    [SerializeField] private Button _button;
+
     private Colours _currentColour;
     private Color _color;
+
     public Action<Stone> OnStoneSelected;
 
     public int PosX { get; set; }
@@ -57,13 +61,19 @@ public class Stone : MonoBehaviour
 
     private void TintStones()
     {
-        Image image = this.gameObject.GetComponent<Image>();
-        image.color = SetRandomColor();
+        _image.color = SetRandomColor();
     }
 
     public void OnSelected(Stone stone)
     {
         OnStoneSelected?.Invoke(stone);
+    }
+
+    public void OnMatchTree()
+    {
+        _image.color = Color.grey;
+
+        _button.enabled = false;
     }
 
 
