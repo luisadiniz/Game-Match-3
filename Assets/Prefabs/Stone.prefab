@@ -89,6 +89,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f3797d75b7f8b042b55fe053f684af3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _image: {fileID: 6251808188523956522}
+  _button: {fileID: 8135313696814559678}
 --- !u!114 &8135313696814559678
 MonoBehaviour:
   m_ObjectHideFlags: 0
