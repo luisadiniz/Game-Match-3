@@ -105,9 +105,6 @@ public class Board : MonoBehaviour
 
     private void CheckCombinations()
     {
-        Debug.Log("First: " + _allStones[_selectedStones[0].PosX][_selectedStones[0].PosY]);
-        Debug.Log("Second: " + _allStones[_selectedStones[0].PosX][_selectedStones[0].PosY]);
-
         List<Stone> _matchedStones = new List<Stone>();
 
         if (_swapDirection == "horizontal")
@@ -175,7 +172,7 @@ public class Board : MonoBehaviour
 
             while (_selectedStones[0].PosX + index >= 0 && _selectedStones[0].Color == _allStones[_selectedStones[0].PosX + index][_selectedStones[0].PosY].Color)
             {
-                _matchedStones.Add(_allStones[_selectedStones[1].PosX + index][_selectedStones[1].PosY]);
+                _matchedStones.Add(_allStones[_selectedStones[0].PosX + index][_selectedStones[0].PosY]);
 
                 if (!_matchedStones.Contains(_allStones[_selectedStones[1].PosX][_selectedStones[1].PosY]))
                 {
