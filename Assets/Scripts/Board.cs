@@ -57,33 +57,21 @@ public class Board : MonoBehaviour
         
         if (_selectedStones.Count == 2)
         {
-            CompareSelectedStones();
+            CompareStones(_selectedStones[0].PosX, _selectedStones[1].PosX, _selectedStones[0].PosY, _selectedStones[1].PosY);
+            CompareStones(_selectedStones[0].PosY, _selectedStones[1].PosY, _selectedStones[0].PosX, _selectedStones[1].PosX);
+
+            _selectedStones.Clear();
         }
     }
 
-    private void CompareSelectedStones()
+    private void CompareStones(int first, int second, int third, int forth)
     {
-
-        if (_selectedStones[0].PosX == _selectedStones[1].PosX && (Mathf.Abs(_selectedStones[0].PosY - _selectedStones[1].PosY) == 1))
-        {
-            Debug.Log("Peças podem ser trocadas");
-            _swapDirection = "vertical";
-            SwapStones();
-            CheckCombinations();
-        }
-
-        else if (_selectedStones[0].PosY == _selectedStones[1].PosY && (Mathf.Abs(_selectedStones[0].PosX - _selectedStones[1].PosX) == 1))
+        if (first == second && (Mathf.Abs(third - forth) == 1))
         {
             Debug.Log("Peças podem ser trocadas");
             _swapDirection = "horizontal";
             SwapStones();
-            CheckCombinations();
-        }
-
-        else
-        {
-            Debug.Log("Peças não podem ser trocadas");
-            _selectedStones.Clear();
+            //CheckCombinations();
         }
     }
 
@@ -122,6 +110,7 @@ public class Board : MonoBehaviour
                 }
 
                 for (int i = 0; i < _matchedStones.Count; i++)
+
                 {
                     _matchedStones[i].OnMatchTree();
                 }
