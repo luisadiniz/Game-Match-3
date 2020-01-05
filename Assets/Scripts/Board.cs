@@ -83,6 +83,7 @@ public class Board : MonoBehaviour
         else
         {
             Debug.Log("Peças não podem ser trocadas");
+            _selectedStones.Clear();
         }
     }
 
@@ -187,13 +188,13 @@ public class Board : MonoBehaviour
                 index--;
             }
         }
+
         else
         {
             //devolver peças pro lugar original
         }
 
         _selectedStones.Clear();
-
     }
 
 }
