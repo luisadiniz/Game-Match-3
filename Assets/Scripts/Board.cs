@@ -12,11 +12,13 @@ public class Board : MonoBehaviour
     [SerializeField] private Transform _board;
     [SerializeField] private int _distanceBetweenStones;
 
+    private List<List<Stone>> _allStones;
     private List<Stone> _selectedStones;
     private string _swapDirection;
 
     private void Start()
     {
+        _allStones = new List<List<Stone>>();
         _selectedStones = new List<Stone>();
         CreateBoard();
     }
@@ -28,6 +30,8 @@ public class Board : MonoBehaviour
 
         for (int i = 0; i < width; i++)
         {
+            _allStones.Add(new List<Stone>());
+
             for (int j = 0; j < height; j++)
             {
                 Vector3 position = new Vector3(i * (newStoneWidth + _distanceBetweenStones), j * (newStoneHeight + _distanceBetweenStones));
@@ -110,6 +114,6 @@ public class Board : MonoBehaviour
         {
             //devolver peças pro lugar original
         }
-
     }
+
 }
