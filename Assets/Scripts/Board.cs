@@ -103,7 +103,6 @@ public class Board : MonoBehaviour
 
     private void CheckCombinations()
     {
-
         Debug.Log("First: " + _allStones[_selectedStones[0].PosX][_selectedStones[0].PosY]);
         Debug.Log("Second: " + _allStones[_selectedStones[0].PosX][_selectedStones[0].PosY]);
 
@@ -111,10 +110,9 @@ public class Board : MonoBehaviour
 
         if (_swapDirection == "vertical")
         {
-            int index = 2;
-            int counter = 0;
+            int index = 1;
 
-            while (_selectedStones[0].Color == _allStones[_selectedStones[0].PosX][_selectedStones[0].PosY + index].Color  && counter < 4)
+            while (_selectedStones[0].Color == _allStones[_selectedStones[0].PosX][_selectedStones[0].PosY + index].Color)
             {
                 _matchedStones.Add(_allStones[_selectedStones[0].PosX][_selectedStones[0].PosY + index]);
 
@@ -126,7 +124,7 @@ public class Board : MonoBehaviour
                 index++;
             }
 
-            while (_selectedStones[1].Color == _allStones[_selectedStones[1].PosX][_selectedStones[1].PosY + index].Color && counter < 4)
+            while (_selectedStones[1].Color == _allStones[_selectedStones[1].PosX][_selectedStones[1].PosY + index].Color)
             {
                 _matchedStones.Add(_allStones[_selectedStones[1].PosX][_selectedStones[1].PosY + index]);
 
@@ -140,10 +138,9 @@ public class Board : MonoBehaviour
         }
         else if (_swapDirection == "horizontal")
         {
-            int index = 2;
-            int counter = 0;
+            int index = 1;
 
-            while (_selectedStones[0].Color == _allStones[_selectedStones[0].PosX + index][_selectedStones[0].PosY].Color && counter < 4)
+            while (_selectedStones[0].Color == _allStones[_selectedStones[0].PosX + index][_selectedStones[0].PosY].Color)
             {
                 _matchedStones.Add(_allStones[_selectedStones[0].PosX + index][_selectedStones[0].PosY]);
 
@@ -155,7 +152,7 @@ public class Board : MonoBehaviour
                 index++;
             }
 
-            while (_selectedStones[1].Color == _allStones[_selectedStones[1].PosX + index][_selectedStones[1].PosY].Color && counter < 4)
+            while (_selectedStones[1].Color == _allStones[_selectedStones[1].PosX + index][_selectedStones[1].PosY].Color)
             {
                 _matchedStones.Add(_allStones[_selectedStones[1].PosX + index][_selectedStones[1].PosY]);
 
