@@ -171,7 +171,9 @@ public class Board : MonoBehaviour
                 index++;
             }
 
-            while (_selectedStones[0].PosX + index >= 0 && _selectedStones[1].Color == _allStones[_selectedStones[1].PosX + index][_selectedStones[1].PosY].Color)
+            index = -1;
+
+            while (_selectedStones[0].PosX + index >= 0 && _selectedStones[0].Color == _allStones[_selectedStones[1].PosX + index][_selectedStones[1].PosY].Color)
             {
                 _matchedStones.Add(_allStones[_selectedStones[1].PosX + index][_selectedStones[1].PosY]);
 
@@ -185,7 +187,7 @@ public class Board : MonoBehaviour
                     _matchedStones[i].OnMatchTree();
                 }
 
-                index++;
+                index--;
             }
         }
         else
