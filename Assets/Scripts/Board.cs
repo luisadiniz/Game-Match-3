@@ -39,6 +39,8 @@ public class Board : MonoBehaviour
                 GameObject newStone = Instantiate(_stonePrefab, position, Quaternion.identity, _board);
 
                 Stone stoneScript = newStone.GetComponent<Stone>();
+                _allStones[i].Add(stoneScript);
+
                 stoneScript.PosX = i;
                 stoneScript.PosY = j;
                 stoneScript.OnStoneSelected += OnSelectedStone;
@@ -108,14 +110,19 @@ public class Board : MonoBehaviour
 
         List<Stone> _matchedStones = new List<Stone>();
 
-        if (_swapDirection == "vertical")
+        if (_swapDirection == "horizontal")
         {
             int index = 1;
 
-            while (_selectedStones[0].Color == _allStones[_selectedStones[0].PosX][_selectedStones[0].PosY + index].Color)
+            while (_selectedStones[0].PosY + index < _allStones[_selectedStones[0].PosX].Count && _selectedStones[0].Color == _allStones[_selectedStones[0].PosX][_selectedStones[0].PosY + index].Color)
             {
                 _matchedStones.Add(_allStones[_selectedStones[0].PosX][_selectedStones[0].PosY + index]);
 
+                if (!_matchedStones.Contains(_allStones[_selectedStones[1].PosX][_selectedStones[1].PosY]))
+                {
+                    _matchedStones.Add(_allStones[_selectedStones[1].PosX][_selectedStones[1].PosY]);
+                }
+
                 for (int i = 0; i < _matchedStones.Count; i++)
                 {
                     _matchedStones[i].OnMatchTree();
@@ -124,25 +131,37 @@ public class Board : MonoBehaviour
                 index++;
             }
 
-            while (_selectedStones[1].Color == _allStones[_selectedStones[1].PosX][_selectedStones[1].PosY + index].Color)
+            index = -1;
+
+            while (_selectedStones[0].PosY + index >= 0 && _selectedStones[0].Color == _allStones[_selectedStones[0].PosX][_selectedStones[0].PosY + index].Color)
             {
-                _matchedStones.Add(_allStones[_selectedStones[1].PosX][_selectedStones[1].PosY + index]);
+                _matchedStones.Add(_allStones[_selectedStones[0].PosX][_selectedStones[0].PosY + index]);
+
+                if (!_matchedStones.Contains(_allStones[_selectedStones[1].PosX][_selectedStones[1].PosY]))
+                {
+                    _matchedStones.Add(_allStones[_selectedStones[1].PosX][_selectedStones[1].PosY]);
+                }
 
                 for (int i = 0; i < _matchedStones.Count; i++)
                 {
                     _matchedStones[i].OnMatchTree();
                 }
 
-                index++;
+                index--;
             }
         }
-        else if (_swapDirection == "horizontal")
+        else if (_swapDirection == "vertical")
         {
             int index = 1;
 
-            while (_selectedStones[0].Color == _allStones[_selectedStones[0].PosX + index][_selectedStones[0].PosY].Color)
+            while (_selectedStones[0].PosX + index < _allStones[_selectedStones[0].PosX].Count && _selectedStones[0].Color == _allStones[_selectedStones[0].PosX + index][_selectedStones[0].PosY].Color)
             {
                 _matchedStones.Add(_allStones[_selectedStones[0].PosX + index][_selectedStones[0].PosY]);
+
+                if (!_matchedStones.Contains(_allStones[_selectedStones[1].PosX][_selectedStones[1].PosY]))
+                {
+                    _matchedStones.Add(_allStones[_selectedStones[1].PosX][_selectedStones[1].PosY]);
+                }
 
                 for (int i = 0; i < _matchedStones.Count; i++)
                 {
@@ -152,9 +171,14 @@ public class Board : MonoBehaviour
                 index++;
             }
 
-            while (_selectedStones[1].Color == _allStones[_selectedStones[1].PosX + index][_selectedStones[1].PosY].Color)
+            while (_selectedStones[0].PosX + index >= 0 && _selectedStones[1].Color == _allStones[_selectedStones[1].PosX + index][_selectedStones[1].PosY].Color)
             {
                 _matchedStones.Add(_allStones[_selectedStones[1].PosX + index][_selectedStones[1].PosY]);
+
+                if (!_matchedStones.Contains(_allStones[_selectedStones[1].PosX][_selectedStones[1].PosY]))
+                {
+                    _matchedStones.Add(_allStones[_selectedStones[1].PosX][_selectedStones[1].PosY]);
+                }
 
                 for (int i = 0; i < _matchedStones.Count; i++)
                 {
