@@ -173,7 +173,7 @@ public class Board : MonoBehaviour
 
             index = -1;
 
-            while (_selectedStones[0].PosX + index >= 0 && _selectedStones[0].Color == _allStones[_selectedStones[1].PosX + index][_selectedStones[1].PosY].Color)
+            while (_selectedStones[0].PosX + index >= 0 && _selectedStones[0].Color == _allStones[_selectedStones[0].PosX + index][_selectedStones[0].PosY].Color)
             {
                 _matchedStones.Add(_allStones[_selectedStones[1].PosX + index][_selectedStones[1].PosY]);
 
