@@ -142,7 +142,6 @@ public class Board : MonoBehaviour
         if(_matchedStones.Count >= 3)
         for (int i = 0; i < _matchedStones.Count; i++)
             {
-                print(_matchedStones.Count);
                 _matchedStones[i].OnMatchTree();
         }
 
@@ -156,7 +155,6 @@ public class Board : MonoBehaviour
         while (_selectedStones[selectedindex].PosY + index < _allStones[_selectedStones[selectedindex].PosX].Count && _selectedStones[selectedindex].Color == _allStones[_selectedStones[selectedindex].PosX][_selectedStones[selectedindex].PosY + index].Color)
         {
             _matchedStones.Add(_allStones[_selectedStones[selectedindex].PosX][_selectedStones[selectedindex].PosY + index]);
-            print("HORIZONTAL UP X: " + _selectedStones[selectedindex].PosX + " SELECTED " + selectedindex);
             index++;
         }
 
@@ -164,7 +162,6 @@ public class Board : MonoBehaviour
         while (_selectedStones[selectedindex].PosY + index >= 0 && _selectedStones[selectedindex].Color == _allStones[_selectedStones[selectedindex].PosX][_selectedStones[selectedindex].PosY + index].Color)
         {
             _matchedStones.Add(_allStones[_selectedStones[selectedindex].PosX][_selectedStones[selectedindex].PosY + index]);
-            print("HORIZONTAL DOWN X:" + _selectedStones[selectedindex].PosX + " SELECTED " + selectedindex);
             index--;
         }
         HandleMatchedStones(selectedindex);
@@ -176,7 +173,6 @@ public class Board : MonoBehaviour
         while (_selectedStones[selectedIndex].PosX + index < _allStones[_selectedStones[selectedIndex].PosX].Count && _selectedStones[selectedIndex].Color == _allStones[_selectedStones[selectedIndex].PosX + index][_selectedStones[selectedIndex].PosY].Color)
         {
             _matchedStones.Add(_allStones[_selectedStones[0].PosX + index][_selectedStones[selectedIndex].PosY]);
-            print("VERTICAL RIGHT " + _selectedStones[selectedIndex].PosY + " SELECTED " + selectedIndex);
             index++;
         }
 
@@ -184,7 +180,6 @@ public class Board : MonoBehaviour
         while (_selectedStones[selectedIndex].PosX + index >= 0 && _selectedStones[selectedIndex].Color == _allStones[_selectedStones[selectedIndex].PosX + index][_selectedStones[selectedIndex].PosY].Color)
         {
             _matchedStones.Add(_allStones[_selectedStones[selectedIndex].PosX + index][_selectedStones[selectedIndex].PosY]);
-            print("VERTICAL LEFT " + _selectedStones[selectedIndex].PosY + " SELECTED " + selectedIndex);
             index--;
         }
         HandleMatchedStones(selectedIndex);
