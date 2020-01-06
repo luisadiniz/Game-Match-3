@@ -105,6 +105,9 @@ public class Board : MonoBehaviour
 
         _selectedStones[1].PosX = tempPosX;
         _selectedStones[1].PosY = tempPosY;
+
+        _allStones[_selectedStones[0].PosX][_selectedStones[0].PosY] = _selectedStones[0];
+        _allStones[_selectedStones[1].PosX][_selectedStones[1].PosY] = _selectedStones[1];
     }
 
     private void CheckCombinations()
@@ -129,17 +132,22 @@ public class Board : MonoBehaviour
         _selectedStones.Clear();
     }
 
-    private void HandleMatchedStones()
+    private void HandleMatchedStones(int selectedIndex)
     {
-        if (!_matchedStones.Contains(_allStones[_selectedStones[1].PosX][_selectedStones[1].PosY]))
+        if (!_matchedStones.Contains(_selectedStones[selectedIndex]))
         {
-           _matchedStones.Add(_allStones[_selectedStones[1].PosX][_selectedStones[1].PosY]);
+           _matchedStones.Add(_selectedStones[selectedIndex]);
         }
 
+        if(_matchedStones.Count >= 3)
         for (int i = 0; i < _matchedStones.Count; i++)
-        {
-           _matchedStones[i].OnMatchTree();
+            {
+                print(_matchedStones.Count);
+                _matchedStones[i].OnMatchTree();
         }
+
+        _matchedStones = new List<Stone>();
+
     }
 
     private void HandleHorizontalCombinations(int selectedindex)
@@ -148,8 +156,7 @@ public class Board : MonoBehaviour
         while (_selectedStones[selectedindex].PosY + index < _allStones[_selectedStones[selectedindex].PosX].Count && _selectedStones[selectedindex].Color == _allStones[_selectedStones[selectedindex].PosX][_selectedStones[selectedindex].PosY + index].Color)
         {
             _matchedStones.Add(_allStones[_selectedStones[selectedindex].PosX][_selectedStones[selectedindex].PosY + index]);
-            HandleMatchedStones();
-
+            print("HORIZONTAL UP X: " + _selectedStones[selectedindex].PosX + " SELECTED " + selectedindex);
             index++;
         }
 
@@ -157,10 +164,10 @@ public class Board : MonoBehaviour
         while (_selectedStones[selectedindex].PosY + index >= 0 && _selectedStones[selectedindex].Color == _allStones[_selectedStones[selectedindex].PosX][_selectedStones[selectedindex].PosY + index].Color)
         {
             _matchedStones.Add(_allStones[_selectedStones[selectedindex].PosX][_selectedStones[selectedindex].PosY + index]);
-            HandleMatchedStones();
-
+            print("HORIZONTAL DOWN X:" + _selectedStones[selectedindex].PosX + " SELECTED " + selectedindex);
             index--;
         }
+        HandleMatchedStones(selectedindex);
     }
 
     private void HandleVerticalCombinations(int selectedIndex)
@@ -169,8 +176,7 @@ public class Board : MonoBehaviour
         while (_selectedStones[selectedIndex].PosX + index < _allStones[_selectedStones[selectedIndex].PosX].Count && _selectedStones[selectedIndex].Color == _allStones[_selectedStones[selectedIndex].PosX + index][_selectedStones[selectedIndex].PosY].Color)
         {
             _matchedStones.Add(_allStones[_selectedStones[0].PosX + index][_selectedStones[selectedIndex].PosY]);
-            HandleMatchedStones();
-
+            print("VERTICAL RIGHT " + _selectedStones[selectedIndex].PosY + " SELECTED " + selectedIndex);
             index++;
         }
 
@@ -178,10 +184,10 @@ public class Board : MonoBehaviour
         while (_selectedStones[selectedIndex].PosX + index >= 0 && _selectedStones[selectedIndex].Color == _allStones[_selectedStones[selectedIndex].PosX + index][_selectedStones[selectedIndex].PosY].Color)
         {
             _matchedStones.Add(_allStones[_selectedStones[selectedIndex].PosX + index][_selectedStones[selectedIndex].PosY]);
-            HandleMatchedStones();
-
+            print("VERTICAL LEFT " + _selectedStones[selectedIndex].PosY + " SELECTED " + selectedIndex);
             index--;
         }
+        HandleMatchedStones(selectedIndex);
     }
 
 }

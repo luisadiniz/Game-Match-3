@@ -72,7 +72,7 @@ public class Stone : MonoBehaviour
     public void OnMatchTree()
     {
         _image.color = Color.grey;
-
+        _color = Color.grey;
         _button.enabled = false;
     }
 
