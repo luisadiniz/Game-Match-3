@@ -16,6 +16,7 @@ public class Board : MonoBehaviour
     private List<Stone> _selectedStones;
     private List<Stone> _matchedStones;
     private string _swapDirection;
+    private bool _isMatch;
 
     private void Start()
     {
@@ -112,7 +113,6 @@ public class Board : MonoBehaviour
 
     private void CheckCombinations()
     {
-
         if (_swapDirection == "horizontal")
         {
             HandleHorizontalCombinations(0);
