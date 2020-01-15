@@ -7,23 +7,31 @@ public class Core : MonoBehaviour
     int height = 5;
     //private List<List<int>> _allStones;
 
-    private List<int> _grid = new List<int>
+    private List<List<int>> _grid = new List<List<int>>
     {
-        3, 0, 3, 1, 0,
-        2, 0, 1, 0, 1,
-        0, 2, 1, 3, 1,
-        2, 2, 3, 3, 0,
-        2, 3, 2, 0, 3
+        new List<int> { 3, 0, 3, 1, 0 },
+        new List<int> { 2, 0, 1, 0, 1 },
+        new List<int> { 0, 2, 1, 3, 1 },
+        new List<int> { 2, 2, 2, 3, 0 },
+        new List<int> { 2, 3, 2, 0, 3 }
     };
+
+    private List<int> _matchedStones;
+
 
     private void Start()
     {
         //_allStones = new List<List<int>>();
+        _matchedStones = new List<int>();
 
         PrintGrid("Inicial");
-        SwapStones();
+
+        SwapStones(2,0 , 2,1);
 
         PrintGrid("Swaped");
+
+        CheckCombinations();
+        PrintGrid("Combinations");
     }
 
     //private void CreateBoard()
@@ -39,7 +47,7 @@ public class Core : MonoBehaviour
     //    }
     //}
 
-    private void SwapStones()
+    private void SwapStones(int i1, int j1, int i2, int j2)
     {
         //Debug.Log("First Stone Before Swap: " + _allStones[i1][j1]);
         //Debug.Log("Second Stone Before Swap: " + _allStones[i1][j2]);
@@ -52,37 +60,52 @@ public class Core : MonoBehaviour
         //Debug.Log("First Stone After Swap: " + _allStones[i1][j1]);
         //Debug.Log("Second Stone After Swap: " + _allStones[i1][j2]);
 
-        int tempPosition = _grid[10];
+        int tempPosition = _grid[i1][j1];
 
-        _grid[10] = _grid[11];
-        _grid[11] = tempPosition;
+        _grid[i1][j1] = _grid[i2][j2];
+        _grid[i2][j2] = tempPosition;
     }
 
     private void PrintGrid(string name)
     {
         string grid = "";
-        //for (int i = 0; i < _allStones.Count; i++)
-        //{
-        //    for (int j = 0; j < _allStones[i].Count; j++)
-        //    {
-        //        grid += $"[{_allStones[i][j]}]";
-        //        if (j < _allStones[i].Count - 1)
-        //        {
-        //            grid += ",";
-        //        }
-        //    }
-        //    grid += "\n";
-        //}
-
         for (int i = 0; i < _grid.Count; i++)
         {
-            grid += $"[{_grid[i]}], ";
-            if((i+1)% width == 0)
+            for (int j = 0; j < _grid[i].Count; j++)
             {
-                grid += "\n";
+                grid += $"[{_grid[i][j]}]";
+                if (j < _grid[i].Count - 1)
+                {
+                    grid += ",";
+                }
             }
+            grid += "\n";
         }
 
         Debug.Log($"Grid {name}: \n" + grid);
+    }
+
+    private void CheckCombinations()
+    {
+        for (int i = 0; i < _grid.Count; i++)
+        {
+            for (int j = 0; j < _grid[i].Count; j++)
+            {
+                if (j != 0 && _grid[i][j] == _grid[i][j - 1])
+                {
+                    _matchedStones.Add(_grid[i][j]);
+                }
+                else
+                {
+                    if (_matchedStones.Count > 2)
+                    {
+
+                    }
+
+                    _matchedStones = new List<int>();
+                }
+
+            }
+        }
     }
 }
