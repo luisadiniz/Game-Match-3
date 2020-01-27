@@ -16,13 +16,9 @@ public class Core : MonoBehaviour
         new List<int> { 2, 3, 2, 0, 3 }
     };
 
-    private List<int> _matchedStones;
-
-
     private void Start()
     {
         //_allStones = new List<List<int>>();
-        _matchedStones = new List<int>();
 
         PrintGrid("Inicial");
 
@@ -87,22 +83,28 @@ public class Core : MonoBehaviour
 
     private void CheckCombinations()
     {
+        List<Vector2> _matchedStones = new List<Vector2>();
+
         for (int i = 0; i < _grid.Count; i++)
         {
             for (int j = 0; j < _grid[i].Count; j++)
             {
                 if (j != 0 && _grid[i][j] == _grid[i][j - 1])
                 {
-                    _matchedStones.Add(_grid[i][j]);
+                    _matchedStones.Add(new Vector2(i,j));
                 }
                 else
                 {
                     if (_matchedStones.Count > 2)
                     {
+                        for (int y = 0; y < _matchedStones.Count; y++)
+                        {
+                            _grid[(int)_matchedStones[y].x][(int)_matchedStones[y].y] = -1;
 
+                            _matchedStones = new List<Vector2>();
+                        }
                     }
 
-                    _matchedStones = new List<int>();
                 }
 
             }
