@@ -9,11 +9,11 @@ public class Core : MonoBehaviour
 
     private List<List<int>> _grid = new List<List<int>>
     {
-        new List<int> { 3, 0, 3, 1, 0 },
-        new List<int> { 2, 0, 1, 0, 1 },
+        new List<int> { 3, 0, 3, 3, 0 },
+        new List<int> { 2, 2, 1, 0, 1 },
         new List<int> { 0, 2, 1, 3, 1 },
         new List<int> { 2, 2, 2, 3, 0 },
-        new List<int> { 2, 3, 2, 0, 3 }
+        new List<int> { 2, 3, 2, 3, 3 }
     };
 
     private void Start()
@@ -92,19 +92,16 @@ public class Core : MonoBehaviour
                 if (j != 0 && _grid[i][j] == _grid[i][j - 1])
                 {
                     _matchedStones.Add(new Vector2(i,j));
+                    //to do: encontrar forma de fazer a pedra verificar nao so a primeira, mas a segunda anterior a ela
                 }
-                else
+            
+                if (_matchedStones.Count > 2)
                 {
-                    if (_matchedStones.Count > 2)
+                    for (int y = 0; y < _matchedStones.Count; y++)
                     {
-                        for (int y = 0; y < _matchedStones.Count; y++)
-                        {
-                            _grid[(int)_matchedStones[y].x][(int)_matchedStones[y].y] = -1;
+                        _grid[(int)_matchedStones[y].x][(int)_matchedStones[y].y] = -1;
 
-                            _matchedStones = new List<Vector2>();
-                        }
                     }
-
                 }
 
             }
