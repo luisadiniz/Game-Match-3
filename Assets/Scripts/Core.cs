@@ -12,7 +12,7 @@ public class Core : MonoBehaviour
         new List<int> { 3, 0, 3, 3, 0 },
         new List<int> { 2, 2, 1, 0, 1 },
         new List<int> { 0, 2, 1, 3, 1 },
-        new List<int> { 2, 2, 2, 3, 0 },
+        new List<int> { 2, 2, 2, 2, 0 },
         new List<int> { 2, 3, 2, 3, 3 }
     };
 
@@ -89,22 +89,29 @@ public class Core : MonoBehaviour
         {
             for (int j = 0; j < _grid[i].Count; j++)
             {
-                if (j != 0 && _grid[i][j] == _grid[i][j - 1])
+                if ((j + 1) < _grid[i].Count && _grid[i][j] == _grid[i][j + 1])
                 {
-                    _matchedStones.Add(new Vector2(i,j));
-                    //to do: encontrar forma de fazer a pedra verificar nao so a primeira, mas a segunda anterior a ela
-                }
-            
-                if (_matchedStones.Count > 2)
-                {
-                    for (int y = 0; y < _matchedStones.Count; y++)
-                    {
-                        _grid[(int)_matchedStones[y].x][(int)_matchedStones[y].y] = -1;
+                    _matchedStones.Add(new Vector2(i, j));
+                    _matchedStones.Add(new Vector2(i, j + 1));
 
+                    Debug.Log("NEW STONE" + new Vector2(i, j));
+                }
+                else
+                {
+                    if (_matchedStones.Count > 2)
+                    {
+                        for (int y = 0; y < _matchedStones.Count; y++)
+                        {
+                            _grid[(int)_matchedStones[y].x][(int)_matchedStones[y].y] = -1;
+                        }
+                    }
+                    else
+                    {
+                        _matchedStones.Clear();
                     }
                 }
-
             }
+            // TODO: fazer outro for para as colunas (j)
         }
     }
 }
