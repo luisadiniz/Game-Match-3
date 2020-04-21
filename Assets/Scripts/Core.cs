@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class Core : MonoBehaviour
 {
-    int width = 5;
+    int width = 7;
     int height = 5;
     //private List<List<int>> _allStones;
 
@@ -11,9 +11,9 @@ public class Core : MonoBehaviour
     {
         new List<int> { 3, 3, 3, 2, 5, 5, 5 },
         new List<int> { 2, 2, 1, 1, 0, 1, 0 },
-        new List<int> { 0, 2, 1, 1, 3, 1, 0 },
-        new List<int> { 2, 2, 2, 0, 2, 0, 1 },
-        new List<int> { 2, 3, 2, 1, 3, 3, 0 }
+        new List<int> { 2, 0, 1, 1, 3, 1, 0 },
+        new List<int> { 1, 2, 3, 3, 3, 1, 1 },
+        new List<int> { 2, 2, 2, 1, 2, 3, 0 }
     };
 
     private void Start()
@@ -85,14 +85,47 @@ public class Core : MonoBehaviour
     {
         List<Vector2> _matchedStones = new List<Vector2>();
 
+        int index = 1;
         for (int i = 0; i < _grid.Count; i++)
         {
-            for (int j = 0; j < _grid[i].Count; j++)
+            //for (int j = 0; j < _grid[i].Count; j++)
+            //{
+            //    if ((j + 1) < _grid[i].Count && _grid[i][j] == _grid[i][j + 1])
+            //    {
+            //        _matchedStones.Add(new Vector2(i, j));
+            //        _matchedStones.Add(new Vector2(i, j + 1));
+            //    }
+            //    else
+            //    {
+            //        if (_matchedStones.Count > 2)
+            //        {
+            //            for (int y = 0; y < _matchedStones.Count; y++)
+            //            {
+            //                _grid[(int)_matchedStones[y].x][(int)_matchedStones[y].y] = -1;
+            //            }
+            //            _matchedStones.Clear();
+            //        }
+            //        else
+            //        {
+            //            _matchedStones.Clear();
+            //        }
+            //      }
+            //  }
+
+
+            for (int x = 0; x < _grid[i].Count; x++)
             {
-                if ((j + 1) < _grid[i].Count && _grid[i][j] == _grid[i][j + 1])
+                if(i + index > _grid.Count)
                 {
-                    _matchedStones.Add(new Vector2(i, j));
-                    _matchedStones.Add(new Vector2(i, j + 1));
+                    index = 1;
+                }
+
+                if ((i + index) < _grid.Count && _grid[i][x] == _grid[i + index][x])
+                {
+                    _matchedStones.Add(new Vector2(i, x));
+                    _matchedStones.Add(new Vector2(i + index, x));
+
+                    index++;
                 }
                 else
                 {
@@ -100,17 +133,15 @@ public class Core : MonoBehaviour
                     {
                         for (int y = 0; y < _matchedStones.Count; y++)
                         {
-                            _grid[(int)_matchedStones[y].x][(int)_matchedStones[y].y] = -1;
+                            int gridX = (int)_matchedStones[y].x;
+                            int gridY = (int)_matchedStones[y].y;
+                            _grid[gridX][gridY] = -1;
                         }
-                        _matchedStones.Clear();
-                    }
-                    else
-                    {
-                        _matchedStones.Clear();
                     }
                 }
             }
-            // TODO: fazer outro for para as colunas (j)
         }
+        
     }
+
 }
