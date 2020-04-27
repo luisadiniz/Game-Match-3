@@ -85,47 +85,14 @@ public class Core : MonoBehaviour
     {
         List<Vector2> _matchedStones = new List<Vector2>();
 
-        int index = 1;
         for (int i = 0; i < _grid.Count; i++)
         {
-            //for (int j = 0; j < _grid[i].Count; j++)
-            //{
-            //    if ((j + 1) < _grid[i].Count && _grid[i][j] == _grid[i][j + 1])
-            //    {
-            //        _matchedStones.Add(new Vector2(i, j));
-            //        _matchedStones.Add(new Vector2(i, j + 1));
-            //    }
-            //    else
-            //    {
-            //        if (_matchedStones.Count > 2)
-            //        {
-            //            for (int y = 0; y < _matchedStones.Count; y++)
-            //            {
-            //                _grid[(int)_matchedStones[y].x][(int)_matchedStones[y].y] = -1;
-            //            }
-            //            _matchedStones.Clear();
-            //        }
-            //        else
-            //        {
-            //            _matchedStones.Clear();
-            //        }
-            //      }
-            //  }
-
-
-            for (int x = 0; x < _grid[i].Count; x++)
+            for (int j = 0; j < _grid[i].Count; j++)
             {
-                if(i + index > _grid.Count)
+                if ((j + 1) < _grid[i].Count && _grid[i][j] == _grid[i][j + 1])
                 {
-                    index = 1;
-                }
-
-                if ((i + index) < _grid.Count && _grid[i][x] == _grid[i + index][x])
-                {
-                    _matchedStones.Add(new Vector2(i, x));
-                    _matchedStones.Add(new Vector2(i + index, x));
-
-                    index++;
+                    _matchedStones.Add(new Vector2(i, j));
+                    _matchedStones.Add(new Vector2(i, j + 1));
                 }
                 else
                 {
@@ -138,10 +105,37 @@ public class Core : MonoBehaviour
                             _grid[gridX][gridY] = -1;
                         }
                     }
+                    _matchedStones.Clear();
+                }
+            }
+
+        }
+
+        for (int j = 0; j < width; j++)
+        {
+            for (int i = 0; i < _grid.Count; i++)
+            {
+                if ((i + 1) < _grid.Count && _grid[i][j] == _grid[i+1][j])
+                {
+                    _matchedStones.Add(new Vector2(i, j));
+                    _matchedStones.Add(new Vector2(i + 1, j));
+                }
+                else
+                {
+                    if (_matchedStones.Count > 2)
+                    {
+                        for (int y = 0; y < _matchedStones.Count; y++)
+                        {
+                            int gridX = (int)_matchedStones[y].x;
+                            int gridY = (int)_matchedStones[y].y;
+                            _grid[gridX][gridY] = -1;
+                        }
+                    }
+                    _matchedStones.Clear();
                 }
             }
         }
-        
+
     }
 
 }
