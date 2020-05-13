@@ -9,11 +9,11 @@ public class Core : MonoBehaviour
 
     private List<List<int>> _grid = new List<List<int>>
     {
-        new List<int> { 3, 3, 3, 2, 5, 5, 5 },
-        new List<int> { 2, 2, 1, 1, 0, 1, 0 },
-        new List<int> { 2, 0, 1, 1, 3, 1, 0 },
-        new List<int> { 1, 2, 3, 3, 3, 1, 1 },
-        new List<int> { 2, 2, 2, 1, 2, 3, 0 }
+        new List<int> { 1, 2, 3, 4, 5, 4, 3 },
+        new List<int> { 5, 4, 2, 2, 1, 0, 1 },
+        new List<int> { 3, 2, 2, 0, 1, 2, 3 },
+        new List<int> { 0, 2, 3, 2, 4, 5, 4 },
+        new List<int> { 4, 3, 2, 1, 0, 1, 2 }
     };
 
     private void Start()
@@ -22,7 +22,7 @@ public class Core : MonoBehaviour
 
         PrintGrid("Inicial");
 
-        SwapStones(2,0 , 2,1);
+        SwapStones(3,2 , 4,2);
 
         PrintGrid("Swaped");
 
@@ -84,6 +84,7 @@ public class Core : MonoBehaviour
     private void CheckCombinations()
     {
         List<Vector2> _matchedStones = new List<Vector2>();
+        List<Vector2> _allMatchedStones = new List<Vector2>();
 
         for (int i = 0; i < _grid.Count; i++)
         {
@@ -102,7 +103,8 @@ public class Core : MonoBehaviour
                         {
                             int gridX = (int)_matchedStones[y].x;
                             int gridY = (int)_matchedStones[y].y;
-                            _grid[gridX][gridY] = -1;
+
+                            _allMatchedStones.Add(new Vector2(gridX, gridY));
                         }
                     }
                     _matchedStones.Clear();
@@ -128,12 +130,22 @@ public class Core : MonoBehaviour
                         {
                             int gridX = (int)_matchedStones[y].x;
                             int gridY = (int)_matchedStones[y].y;
-                            _grid[gridX][gridY] = -1;
+
+                            _allMatchedStones.Add(new Vector2(gridX, gridY));
                         }
                     }
                     _matchedStones.Clear();
                 }
             }
+        }
+
+        for (int e = 0; e < _allMatchedStones.Count; e++)
+        {
+            int gridX = (int)_allMatchedStones[e].x;
+            int gridY = (int)_allMatchedStones[e].y;
+
+            _grid[gridX][gridY] = -1;
+
         }
 
     }
