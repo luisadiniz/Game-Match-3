@@ -28,6 +28,9 @@ public class Core : MonoBehaviour
 
         CheckCombinations();
         PrintGrid("Combinations");
+
+        UpdateGridValues();
+        PrintGrid("Updated Grid After Combinations");
     }
 
     //private void CreateBoard()
@@ -148,6 +151,20 @@ public class Core : MonoBehaviour
 
         }
 
+    }
+
+    private void UpdateGridValues()
+    {
+        for (int j = 0; j < width; j++)
+        {
+            for (int i = _grid.Count; i >= 0 ; i--)
+            {
+                if (_grid[i][j] == -1 && (i - 1) >= 0 && _grid[i - 1][j] != -1)
+                {
+                    SwapStones(i, j, i - 1, j);
+                }
+            }
+        }
     }
 
 }
