@@ -11,8 +11,8 @@ public class Core : MonoBehaviour
     {
         new List<int> { 1, 2, 3, 4, 5, 4, 3 },
         new List<int> { 5, 4, 2, 2, 1, 0, 1 },
-        new List<int> { 3, 2, 2, 0, 1, 2, 3 },
-        new List<int> { 0, 2, 3, 2, 4, 5, 4 },
+        new List<int> { 3, 2, 2, 0, 1, 3, 1 },
+        new List<int> { 0, 2, 3, 2, 1, 5, 4 },
         new List<int> { 4, 3, 2, 1, 0, 1, 2 }
     };
 
@@ -157,9 +157,9 @@ public class Core : MonoBehaviour
     {
         for (int j = 0; j < width; j++)
         {
-            for (int i = _grid.Count; i >= 0 ; i--)
+            for (int i = _grid.Count - 1; i >= 0 ; i--)
             {
-                if (_grid[i][j] == -1 && (i - 1) >= 0 && _grid[i - 1][j] != -1)
+                if (_grid[i][j] == -1 && (i - 1) >= 0)
                 {
                     SwapStones(i, j, i - 1, j);
                 }
