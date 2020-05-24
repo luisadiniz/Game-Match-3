@@ -10,10 +10,10 @@ public class Core : MonoBehaviour
     private List<List<int>> _grid = new List<List<int>>
     {
         new List<int> { 1, 2, 3, 4, 5, 4, 3 },
-        new List<int> { 5, 4, 2, 2, 1, 0, 1 },
+        new List<int> { 5, 4, 2, 2, 0, 0, 2 },
         new List<int> { 3, 2, 2, 0, 1, 3, 1 },
-        new List<int> { 0, 2, 3, 2, 1, 5, 4 },
-        new List<int> { 4, 3, 2, 1, 0, 1, 2 }
+        new List<int> { 0, 2, 3, 2, 3, 5, 1 },
+        new List<int> { 4, 3, 2, 1, 5, 1, 1 }
     };
 
     private void Start()
@@ -29,8 +29,14 @@ public class Core : MonoBehaviour
         CheckCombinations();
         PrintGrid("Combinations");
 
-        UpdateGridValues();
-        PrintGrid("Updated Grid After Combinations");
+        for (int i = 0; i < height; i++)
+        {
+            UpdateGridValues();
+        }
+        PrintGrid("Updated After Combinations");
+
+        CreateNewStones();
+        PrintGrid("With New Stones");
     }
 
     //private void CreateBoard()
@@ -167,4 +173,17 @@ public class Core : MonoBehaviour
         }
     }
 
+    private void CreateNewStones()
+    {
+        for (int j = 0; j < width; j++)
+        {
+            for (int i = 0; i < _grid.Count; i++)
+            {
+                if (_grid[i][j] == -1)
+                {
+                    _grid[i][j] = Random.Range(0, 5);
+                }
+            } 
+        } 
+    }
 }
