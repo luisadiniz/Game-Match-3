@@ -16,6 +16,8 @@ public class Core : MonoBehaviour
         new List<int> { 4, 3, 2, 1, 5, 1, 1 }
     };
 
+    private List<Vector2> _allMatchedStones = new List<Vector2>();
+
     private void Start()
     {
         //_allStones = new List<List<int>>();
@@ -26,17 +28,12 @@ public class Core : MonoBehaviour
 
         PrintGrid("Swaped");
 
+        //CheckCombinations();
+    }
+
+    private void Update()
+    {
         CheckCombinations();
-        PrintGrid("Combinations");
-
-        for (int i = 0; i < height; i++)
-        {
-            UpdateGridValues();
-        }
-        PrintGrid("Updated After Combinations");
-
-        CreateNewStones();
-        PrintGrid("With New Stones");
     }
 
     //private void CreateBoard()
@@ -93,7 +90,6 @@ public class Core : MonoBehaviour
     private void CheckCombinations()
     {
         List<Vector2> _matchedStones = new List<Vector2>();
-        List<Vector2> _allMatchedStones = new List<Vector2>();
 
         for (int i = 0; i < _grid.Count; i++)
         {
@@ -148,6 +144,27 @@ public class Core : MonoBehaviour
             }
         }
 
+        PrintGrid("Combinations");
+
+        if (_allMatchedStones.Count > 0)
+        {
+            SetMatches();
+            PrintGrid("Set Matches");
+
+            for (int i = 0; i < height; i++)
+            {
+                UpdateGridValues();
+            }
+            PrintGrid("Updated After Combinations");
+
+            CreateNewStones();
+            PrintGrid("With New Stones");
+        }
+
+    }
+
+    private void SetMatches()
+    {
         for (int e = 0; e < _allMatchedStones.Count; e++)
         {
             int gridX = (int)_allMatchedStones[e].x;
@@ -156,7 +173,6 @@ public class Core : MonoBehaviour
             _grid[gridX][gridY] = -1;
 
         }
-
     }
 
     private void UpdateGridValues()
@@ -184,6 +200,8 @@ public class Core : MonoBehaviour
                     _grid[i][j] = Random.Range(0, 5);
                 }
             } 
-        } 
+        }
+
+        _allMatchedStones.Clear();
     }
 }
