@@ -16,8 +16,6 @@ public class Core : MonoBehaviour
         new List<int> { 4, 3, 2, 1, 5, 1, 1 }
     };
 
-    private List<Vector2> _allMatchedStones = new List<Vector2>();
-
     private void Start()
     {
         //_allStones = new List<List<int>>();
@@ -87,9 +85,11 @@ public class Core : MonoBehaviour
         Debug.Log($"Grid {name}: \n" + grid);
     }
 
-    private void CheckCombinations()
+    private List<Vector2> GetCombinations()
     {
-        List<Vector2> _matchedStones = new List<Vector2>();
+        List<Vector2> matchedStones = new List<Vector2>();
+        List<Vector2> allMatchedStones = new List<Vector2>();
+
 
         for (int i = 0; i < _grid.Count; i++)
         {
@@ -97,22 +97,22 @@ public class Core : MonoBehaviour
             {
                 if ((j + 1) < _grid[i].Count && _grid[i][j] == _grid[i][j + 1])
                 {
-                    _matchedStones.Add(new Vector2(i, j));
-                    _matchedStones.Add(new Vector2(i, j + 1));
+                    matchedStones.Add(new Vector2(i, j));
+                    matchedStones.Add(new Vector2(i, j + 1));
                 }
                 else
                 {
-                    if (_matchedStones.Count > 2)
+                    if (matchedStones.Count > 2)
                     {
-                        for (int y = 0; y < _matchedStones.Count; y++)
+                        for (int y = 0; y < matchedStones.Count; y++)
                         {
-                            int gridX = (int)_matchedStones[y].x;
-                            int gridY = (int)_matchedStones[y].y;
+                            int gridX = (int)matchedStones[y].x;
+                            int gridY = (int)matchedStones[y].y;
 
-                            _allMatchedStones.Add(new Vector2(gridX, gridY));
+                            allMatchedStones.Add(new Vector2(gridX, gridY));
                         }
                     }
-                    _matchedStones.Clear();
+                    matchedStones.Clear();
                 }
             }
 
@@ -122,33 +122,40 @@ public class Core : MonoBehaviour
         {
             for (int i = 0; i < _grid.Count; i++)
             {
-                if ((i + 1) < _grid.Count && _grid[i][j] == _grid[i+1][j])
+                if ((i + 1) < _grid.Count && _grid[i][j] == _grid[i + 1][j])
                 {
-                    _matchedStones.Add(new Vector2(i, j));
-                    _matchedStones.Add(new Vector2(i + 1, j));
+                    matchedStones.Add(new Vector2(i, j));
+                    matchedStones.Add(new Vector2(i + 1, j));
                 }
                 else
                 {
-                    if (_matchedStones.Count > 2)
+                    if (matchedStones.Count > 2)
                     {
-                        for (int y = 0; y < _matchedStones.Count; y++)
+                        for (int y = 0; y < matchedStones.Count; y++)
                         {
-                            int gridX = (int)_matchedStones[y].x;
-                            int gridY = (int)_matchedStones[y].y;
+                            int gridX = (int)matchedStones[y].x;
+                            int gridY = (int)matchedStones[y].y;
 
-                            _allMatchedStones.Add(new Vector2(gridX, gridY));
+                            allMatchedStones.Add(new Vector2(gridX, gridY));
                         }
                     }
-                    _matchedStones.Clear();
+                    matchedStones.Clear();
                 }
             }
         }
 
+        return allMatchedStones;
+    }
+
+    private void CheckCombinations()
+    {
+        List<Vector2> allMatchedStones = GetCombinations();
+
         PrintGrid("Combinations");
 
-        if (_allMatchedStones.Count > 0)
+        if (allMatchedStones.Count > 0)
         {
-            SetMatches();
+            SetMatches(allMatchedStones);
             PrintGrid("Set Matches");
 
             for (int i = 0; i < height; i++)
@@ -163,12 +170,12 @@ public class Core : MonoBehaviour
 
     }
 
-    private void SetMatches()
+    private void SetMatches(List<Vector2> allMatchedStones)
     {
-        for (int e = 0; e < _allMatchedStones.Count; e++)
+        for (int e = 0; e < allMatchedStones.Count; e++)
         {
-            int gridX = (int)_allMatchedStones[e].x;
-            int gridY = (int)_allMatchedStones[e].y;
+            int gridX = (int)allMatchedStones[e].x;
+            int gridY = (int)allMatchedStones[e].y;
 
             _grid[gridX][gridY] = -1;
 
@@ -201,7 +208,5 @@ public class Core : MonoBehaviour
                 }
             } 
         }
-
-        _allMatchedStones.Clear();
     }
 }
