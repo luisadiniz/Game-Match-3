@@ -16,6 +16,9 @@ public class Core : MonoBehaviour
         new List<int> { 4, 3, 2, 1, 5, 1, 1 }
     };
 
+    private List<Vector2> _initialMatchedStonePosition = new List<Vector2>();
+    private List<Vector2> _finalMatchedStonePosition = new List<Vector2>();
+
     private void Start()
     {
         //_allStones = new List<List<int>>();
@@ -158,6 +161,8 @@ public class Core : MonoBehaviour
             SetMatches(allMatchedStones);
             PrintGrid("Set Matches");
 
+            GetInitialMatchedStonesPosition();
+
             for (int i = 0; i < height; i++)
             {
                 UpdateGridValues();
@@ -168,6 +173,7 @@ public class Core : MonoBehaviour
             PrintGrid("With New Stones");
         }
 
+        PrintLists();
     }
 
     private void SetMatches(List<Vector2> allMatchedStones)
@@ -178,9 +184,24 @@ public class Core : MonoBehaviour
             int gridY = (int)allMatchedStones[e].y;
 
             _grid[gridX][gridY] = -1;
-
         }
     }
+
+    private void GetInitialMatchedStonesPosition()
+    {
+        for (int j = 0; j < width; j++)
+        {
+            for (int i = _grid.Count - 1; i >= 0; i--)
+            {
+                if (_grid[i][j] == -1)
+                {
+                    _initialMatchedStonePosition.Add(new Vector2(i, j));
+                }
+            }
+        }
+    }
+
+              
 
     private void UpdateGridValues()
     {
@@ -204,9 +225,24 @@ public class Core : MonoBehaviour
             {
                 if (_grid[i][j] == -1)
                 {
+                    _finalMatchedStonePosition.Add(new Vector2(i, j));
+
                     _grid[i][j] = Random.Range(0, 5);
                 }
             } 
+        }
+    }
+
+    private void PrintLists()
+    {
+        for (int i = 0; i < _initialMatchedStonePosition.Count; i++)
+        {
+            Debug.LogError("Inicial: " + _initialMatchedStonePosition[i]);
+        }
+
+        for (int i = 0; i < _finalMatchedStonePosition.Count; i++)
+        {
+            Debug.LogError("Final: " + _finalMatchedStonePosition[i]);
         }
     }
 }
