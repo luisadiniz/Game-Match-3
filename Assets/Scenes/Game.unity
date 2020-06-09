@@ -381,6 +381,7 @@ GameObject:
   - component: {fileID: 1594272295}
   - component: {fileID: 1594272296}
   - component: {fileID: 1594272297}
+  - component: {fileID: 1594272298}
   m_Layer: 0
   m_Name: Board
   m_TagString: Untagged
@@ -432,3 +433,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc708ce61971049b08c42de4ce64b749, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _boardView: {fileID: 1594272298}
+--- !u!114 &1594272298
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1594272294}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10fc9365b9c1a4ee58978ef5947e9592, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _spritesList:
+  - {fileID: 21300000, guid: 44944f461fce1ef449996efa44afcf37, type: 3}
+  - {fileID: 21300000, guid: 87a08a7e2e671794887364bd94c96623, type: 3}
+  - {fileID: 21300000, guid: 195ae6aa2fc6f5b4194b45af375be296, type: 3}
+  - {fileID: 21300000, guid: 0a0a5647ad6aa4f47be227937a4b082e, type: 3}
+  - {fileID: 21300000, guid: b950f85901cf319488dcb4a27e694031, type: 3}

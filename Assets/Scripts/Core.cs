@@ -3,9 +3,11 @@ using UnityEngine;
 
 public class Core : MonoBehaviour
 {
+    [SerializeField] private BoardViewHandler _boardView;
+
     int width = 7;
     int height = 5;
-    //private List<List<int>> _allStones;
+    private List<List<int>> _board;
 
     private List<List<int>> _grid = new List<List<int>>
     {
@@ -21,7 +23,8 @@ public class Core : MonoBehaviour
 
     private void Start()
     {
-        //_allStones = new List<List<int>>();
+        _board = new List<List<int>>();
+        _boardView.PopulateBoard(CreateBoard());
 
         PrintGrid("Inicial");
 
@@ -37,27 +40,45 @@ public class Core : MonoBehaviour
         CheckCombinations();
     }
 
-    //private void CreateBoard()
-    //{
-    //    for (int i = 0; i < width; i++)
-    //    {
-    //        _allStones.Add(new List<int>());
+    public List<List<int>> CreateBoard()
+    {
+        for (int i = 0; i < width; i++)
+        {
+            _board.Add(new List<int>());
 
-    //        for (int j = 0; j < height; j++)
-    //        {
-    //            _allStones[i].Add(Random.Range(0,4));
-    //        }
-    //    }
-    //}
+            for (int j = 0; j < height; j++)
+            {
+                _board[i].Add(Random.Range(0,5));
+            }
+        }
+
+        string grid = "";
+        for (int i = 0; i < _board.Count; i++)
+        {
+            for (int j = 0; j < _board[i].Count; j++)
+            {
+                grid += $"[{_grid[i][j]}]";
+                if (j < _grid[i].Count - 1)
+                {
+                    grid += ",";
+                }
+            }
+            grid += "\n";
+        }
+
+        Debug.Log($"Grid {name}: \n" + grid);
+
+        return _board;
+    }
 
     private void SwapStones(int i1, int j1, int i2, int j2)
     {
-        //Debug.Log("First Stone Before Swap: " + _allStones[i1][j1]);
+        //Debug.Log("First Stone Before Swap: " + _board[i1][j1]);
         //Debug.Log("Second Stone Before Swap: " + _allStones[i1][j2]);
 
-        //int tempPosition = _allStones[i1][j1];
+        //int tempPosition = _board[i1][j1];
 
-        //_allStones[i1][j1] = _allStones[i1][j2];
+        //_board[i1][j1] = _board[i1][j2];
         //_allStones[i1][j2] = tempPosition;
 
         //Debug.Log("First Stone After Swap: " + _allStones[i1][j1]);
@@ -200,9 +221,7 @@ public class Core : MonoBehaviour
             }
         }
     }
-
-              
-
+                  
     private void UpdateGridValues()
     {
         for (int j = 0; j < width; j++)
