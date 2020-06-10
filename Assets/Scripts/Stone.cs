@@ -27,10 +27,10 @@ public class Stone : MonoBehaviour
     public int PosY { get; set; }
     public Color Color { get { return _color;}}
 
-    private void Start()
-    {
-        TintStones();
-    }
+    //private void Start()
+    //{
+    //    TintStones();
+    //}
 
     public Color SetRandomColor()
     {

@@ -71,20 +71,20 @@ public class Board : MonoBehaviour
         {
             Debug.Log("Peças podem ser trocadas");
             SwapStones();
-            CheckCombinations();
+            //CheckCombinations();
         }
 
         else if (_selectedStones[0].PosY == _selectedStones[1].PosY && (Mathf.Abs(_selectedStones[0].PosX - _selectedStones[1].PosX) == 1))
         {
             Debug.Log("Peças podem ser trocadas");
             SwapStones();
-            CheckCombinations();
+            //CheckCombinations();
         }
 
         else
         {
             Debug.Log("Peças não podem ser trocadas");
-            _selectedStones.Clear();
+            //_selectedStones.Clear();
         }
     }
 
@@ -108,69 +108,71 @@ public class Board : MonoBehaviour
         _allStones[_selectedStones[1].PosX][_selectedStones[1].PosY] = _selectedStones[1];
     }
 
-    private void CheckCombinations()
-    {
-        HandleCombinations(0);
-        HandleCombinations(1);
+    // TODO: eliminar
 
-        _selectedStones.Clear();
-    }
+    //private void CheckCombinations()
+    //{
+    //    HandleCombinations(0);
+    //    HandleCombinations(1);
 
-    private void HandleMatchedStones(int selectedIndex)
-    {
-        if (!_matchedStones.Contains(_selectedStones[selectedIndex]))
-        {
-           _matchedStones.Add(_selectedStones[selectedIndex]);
-        }
+    //    _selectedStones.Clear();
+    //}
 
-        if(_matchedStones.Count >= 3)
-        for (int i = 0; i < _matchedStones.Count; i++)
-            {
-                _matchedStones[i].OnMatchTree();
-                _isMatch = true;
-            }
+    //private void HandleMatchedStones(int selectedIndex)
+    //{
+    //    if (!_matchedStones.Contains(_selectedStones[selectedIndex]))
+    //    {
+    //       _matchedStones.Add(_selectedStones[selectedIndex]);
+    //    }
 
-        _matchedStones = new List<Stone>();
+    //    if(_matchedStones.Count >= 3)
+    //    for (int i = 0; i < _matchedStones.Count; i++)
+    //        {
+    //            _matchedStones[i].OnMatchTree();
+    //            _isMatch = true;
+    //        }
 
-    }
+    //    _matchedStones = new List<Stone>();
 
-    private void HandleCombinations(int selectedIndex)
-    {
-        int index = 1;
-        while (_selectedStones[selectedIndex].PosY + index < _allStones[_selectedStones[selectedIndex].PosX].Count && _selectedStones[selectedIndex].Color == _allStones[_selectedStones[selectedIndex].PosX][_selectedStones[selectedIndex].PosY + index].Color)
-        {
-            _matchedStones.Add(_allStones[_selectedStones[selectedIndex].PosX][_selectedStones[selectedIndex].PosY + index]);
-            index++;
-        }
+    //}
+
+    //private void HandleCombinations(int selectedIndex)
+    //{
+    //    int index = 1;
+    //    while (_selectedStones[selectedIndex].PosY + index < _allStones[_selectedStones[selectedIndex].PosX].Count && _selectedStones[selectedIndex].Color == _allStones[_selectedStones[selectedIndex].PosX][_selectedStones[selectedIndex].PosY + index].Color)
+    //    {
+    //        _matchedStones.Add(_allStones[_selectedStones[selectedIndex].PosX][_selectedStones[selectedIndex].PosY + index]);
+    //        index++;
+    //    }
        
-        index = 1;
-        while (_selectedStones[selectedIndex].PosX + index < _allStones[_selectedStones[selectedIndex].PosX].Count && _selectedStones[selectedIndex].Color == _allStones[_selectedStones[selectedIndex].PosX + index][_selectedStones[selectedIndex].PosY].Color)
-        {
-            _matchedStones.Add(_allStones[_selectedStones[0].PosX + index][_selectedStones[selectedIndex].PosY]);
-            index++;
-        }
+    //    index = 1;
+    //    while (_selectedStones[selectedIndex].PosX + index < _allStones[_selectedStones[selectedIndex].PosX].Count && _selectedStones[selectedIndex].Color == _allStones[_selectedStones[selectedIndex].PosX + index][_selectedStones[selectedIndex].PosY].Color)
+    //    {
+    //        _matchedStones.Add(_allStones[_selectedStones[0].PosX + index][_selectedStones[selectedIndex].PosY]);
+    //        index++;
+    //    }
 
-        index = -1;
-        while (_selectedStones[selectedIndex].PosY + index >= 0 && _selectedStones[selectedIndex].Color == _allStones[_selectedStones[selectedIndex].PosX][_selectedStones[selectedIndex].PosY + index].Color)
-        {
-            _matchedStones.Add(_allStones[_selectedStones[selectedIndex].PosX][_selectedStones[selectedIndex].PosY + index]);
-            index--;
-        }
+    //    index = -1;
+    //    while (_selectedStones[selectedIndex].PosY + index >= 0 && _selectedStones[selectedIndex].Color == _allStones[_selectedStones[selectedIndex].PosX][_selectedStones[selectedIndex].PosY + index].Color)
+    //    {
+    //        _matchedStones.Add(_allStones[_selectedStones[selectedIndex].PosX][_selectedStones[selectedIndex].PosY + index]);
+    //        index--;
+    //    }
 
-        index = -1;
-        while (_selectedStones[selectedIndex].PosX + index >= 0 && _selectedStones[selectedIndex].Color == _allStones[_selectedStones[selectedIndex].PosX + index][_selectedStones[selectedIndex].PosY].Color)
-        {
-            _matchedStones.Add(_allStones[_selectedStones[selectedIndex].PosX + index][_selectedStones[selectedIndex].PosY]);
-            index--;
-        }
+    //    index = -1;
+    //    while (_selectedStones[selectedIndex].PosX + index >= 0 && _selectedStones[selectedIndex].Color == _allStones[_selectedStones[selectedIndex].PosX + index][_selectedStones[selectedIndex].PosY].Color)
+    //    {
+    //        _matchedStones.Add(_allStones[_selectedStones[selectedIndex].PosX + index][_selectedStones[selectedIndex].PosY]);
+    //        index--;
+    //    }
 
-        if (_matchedStones.Count == 0)
-        {
-            SwapStones();
-        }
+    //    if (_matchedStones.Count == 0)
+    //    {
+    //        SwapStones();
+    //    }
 
-        HandleMatchedStones(selectedIndex);
-    }
+    //    HandleMatchedStones(selectedIndex);
+    //}
 
 
 

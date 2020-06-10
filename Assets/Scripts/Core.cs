@@ -24,49 +24,48 @@ public class Core : MonoBehaviour
     private void Start()
     {
         _board = new List<List<int>>();
-        _boardView.PopulateBoard(CreateBoard());
+        _boardView.PopulateBoard(CreateBoard(), width, height);
 
-        PrintGrid("Inicial");
+        //PrintGrid("Inicial");
 
-        SwapStones(3,2 , 4,2);
+        //SwapStones(3,2 , 4,2);
 
-        PrintGrid("Swaped");
+        //PrintGrid("Swaped");
 
-        //CheckCombinations();
     }
 
     private void Update()
     {
-        CheckCombinations();
+        //CheckCombinations();
     }
 
     public List<List<int>> CreateBoard()
     {
-        for (int i = 0; i < width; i++)
+        for (int i = 0; i < height; i++)
         {
             _board.Add(new List<int>());
 
-            for (int j = 0; j < height; j++)
+            for (int j = 0; j < width; j++)
             {
                 _board[i].Add(Random.Range(0,5));
             }
         }
 
-        string grid = "";
-        for (int i = 0; i < _board.Count; i++)
+        string board = "";
+        for (int i = 0; i < height; i++)
         {
-            for (int j = 0; j < _board[i].Count; j++)
+            for (int j = 0; j < width; j++)
             {
-                grid += $"[{_grid[i][j]}]";
-                if (j < _grid[i].Count - 1)
+                board += $"[{_board[i][j]}]";
+                if (j < width - 1)
                 {
-                    grid += ",";
+                    board += ",";
                 }
             }
-            grid += "\n";
+            board += "\n";
         }
 
-        Debug.Log($"Grid {name}: \n" + grid);
+        Debug.Log("Board : \n" + board);
 
         return _board;
     }

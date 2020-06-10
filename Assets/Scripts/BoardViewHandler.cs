@@ -5,19 +5,22 @@ using UnityEngine;
 public class BoardViewHandler : MonoBehaviour
 {
     [SerializeField] private List<Sprite> _spritesList;
+    [SerializeField] private GameObject _stonePrefab;
+    [SerializeField] private GameObject _stoneContainerPrefab;
+    [SerializeField] private Transform _board;
 
-    private void Start()
+    public void PopulateBoard(List<List<int>> board, int width, int height)
     {
-
-    }
-
-    public void PopulateBoard(List<List<int>> board)
-    {
-        for (int i = 0; i < board.Count; i++)
+        for (int i = 0; i < height; i++)
         {
-            for (int j = 0; j < board[i].Count; j++)
-            {
+            GameObject newStoneContainer = Instantiate(_stoneContainerPrefab, _board);
 
+            for (int j = 0; j < width; j++)
+            {
+                GameObject newStone = Instantiate(_stonePrefab, newStoneContainer.transform);
+
+                StoneView stoneScript = newStone.GetComponent<StoneView>();
+                stoneScript.SetColour(_spritesList[board[i][j]]);
             }
         }
     }
