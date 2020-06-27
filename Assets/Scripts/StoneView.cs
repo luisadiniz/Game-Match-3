@@ -9,6 +9,8 @@ public class StoneView : MonoBehaviour
     [SerializeField] private Image _image;
     [SerializeField] private Button _button;
 
+    public int PosX { get; set; }
+    public int PosY { get; set; }
     public Action<StoneView> OnStoneSelected;
 
     public void SetColour(Sprite colour)
