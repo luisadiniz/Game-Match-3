@@ -25,7 +25,7 @@ public class StoneView : MonoBehaviour
         OnStoneSelected?.Invoke(stone);
     }
 
-    public void OnUnselectStone(StoneView stone)
+    public void OnUnselectStone()
     {
         _image.color = Color.white;
     }

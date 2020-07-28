@@ -9,15 +9,6 @@ public class Core : MonoBehaviour
     int height = 5;
     private List<List<int>> _board;
 
-    private List<List<int>> _grid = new List<List<int>>
-    {
-        new List<int> { 1, 2, 3, 4, 5, 4, 3 },
-        new List<int> { 5, 4, 2, 2, 0, 0, 2 },
-        new List<int> { 3, 2, 2, 0, 1, 3, 1 },
-        new List<int> { 0, 2, 3, 2, 3, 5, 1 },
-        new List<int> { 4, 3, 2, 1, 5, 1, 1 }
-    };
-
     private List<Vector2> _initialMatchedStonePosition = new List<Vector2>();
     private List<Vector2> _finalMatchedStonePosition = new List<Vector2>();
 
@@ -25,13 +16,6 @@ public class Core : MonoBehaviour
     {
         _board = new List<List<int>>();
         _boardView.PopulateBoard(CreateBoard(), width, height);
-
-        //PrintGrid("Inicial");
-
-        //SwapStones(3,2 , 4,2);
-
-        //PrintGrid("Swaped");
-
     }
 
     private void Update()
@@ -72,32 +56,21 @@ public class Core : MonoBehaviour
 
     private void SwapStones(int i1, int j1, int i2, int j2)
     {
-        //Debug.Log("First Stone Before Swap: " + _board[i1][j1]);
-        //Debug.Log("Second Stone Before Swap: " + _allStones[i1][j2]);
+        int tempPosition = _board[i1][j1];
 
-        //int tempPosition = _board[i1][j1];
-
-        //_board[i1][j1] = _board[i1][j2];
-        //_allStones[i1][j2] = tempPosition;
-
-        //Debug.Log("First Stone After Swap: " + _allStones[i1][j1]);
-        //Debug.Log("Second Stone After Swap: " + _allStones[i1][j2]);
-
-        int tempPosition = _grid[i1][j1];
-
-        _grid[i1][j1] = _grid[i2][j2];
-        _grid[i2][j2] = tempPosition;
+        _board[i1][j1] = _board[i1][j2];
+        _board[i1][j2] = tempPosition;
     }
 
     private void PrintGrid(string name)
     {
         string grid = "";
-        for (int i = 0; i < _grid.Count; i++)
+        for (int i = 0; i < _board.Count; i++)
         {
-            for (int j = 0; j < _grid[i].Count; j++)
+            for (int j = 0; j < _board[i].Count; j++)
             {
-                grid += $"[{_grid[i][j]}]";
-                if (j < _grid[i].Count - 1)
+                grid += $"[{_board[i][j]}]";
+                if (j < _board[i].Count - 1)
                 {
                     grid += ",";
                 }
@@ -114,11 +87,11 @@ public class Core : MonoBehaviour
         List<Vector2> allMatchedStones = new List<Vector2>();
 
 
-        for (int i = 0; i < _grid.Count; i++)
+        for (int i = 0; i < _board.Count; i++)
         {
-            for (int j = 0; j < _grid[i].Count; j++)
+            for (int j = 0; j < _board[i].Count; j++)
             {
-                if ((j + 1) < _grid[i].Count && _grid[i][j] == _grid[i][j + 1])
+                if ((j + 1) < _board[i].Count && _board[i][j] == _board[i][j + 1])
                 {
                     matchedStones.Add(new Vector2(i, j));
                     matchedStones.Add(new Vector2(i, j + 1));
@@ -143,9 +116,9 @@ public class Core : MonoBehaviour
 
         for (int j = 0; j < width; j++)
         {
-            for (int i = 0; i < _grid.Count; i++)
+            for (int i = 0; i < _board.Count; i++)
             {
-                if ((i + 1) < _grid.Count && _grid[i][j] == _grid[i + 1][j])
+                if ((i + 1) < _board.Count && _board[i][j] == _board[i + 1][j])
                 {
                     matchedStones.Add(new Vector2(i, j));
                     matchedStones.Add(new Vector2(i + 1, j));
@@ -203,7 +176,7 @@ public class Core : MonoBehaviour
             int gridX = (int)allMatchedStones[e].x;
             int gridY = (int)allMatchedStones[e].y;
 
-            _grid[gridX][gridY] = -1;
+            _board[gridX][gridY] = -1;
         }
     }
 
@@ -211,9 +184,9 @@ public class Core : MonoBehaviour
     {
         for (int j = 0; j < width; j++)
         {
-            for (int i = _grid.Count - 1; i >= 0; i--)
+            for (int i = _board.Count - 1; i >= 0; i--)
             {
-                if (_grid[i][j] == -1)
+                if (_board[i][j] == -1)
                 {
                     _initialMatchedStonePosition.Add(new Vector2(i, j));
                 }
@@ -225,9 +198,9 @@ public class Core : MonoBehaviour
     {
         for (int j = 0; j < width; j++)
         {
-            for (int i = _grid.Count - 1; i >= 0 ; i--)
+            for (int i = _board.Count - 1; i >= 0 ; i--)
             {
-                if (_grid[i][j] == -1 && (i - 1) >= 0)
+                if (_board[i][j] == -1 && (i - 1) >= 0)
                 {
                     SwapStones(i, j, i - 1, j);
                 }
@@ -239,13 +212,13 @@ public class Core : MonoBehaviour
     {
         for (int j = 0; j < width; j++)
         {
-            for (int i = 0; i < _grid.Count; i++)
+            for (int i = 0; i < _board.Count; i++)
             {
-                if (_grid[i][j] == -1)
+                if (_board[i][j] == -1)
                 {
                     _finalMatchedStonePosition.Add(new Vector2(i, j));
 
-                    _grid[i][j] = Random.Range(0, 5);
+                    _board[i][j] = Random.Range(0, 5);
                 }
             } 
         }
