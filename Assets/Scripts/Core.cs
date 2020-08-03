@@ -16,6 +16,8 @@ public class Core : MonoBehaviour
     {
         _board = new List<List<int>>();
         _boardView.PopulateBoard(CreateBoard(), width, height);
+
+        _boardView.OnSwap += SwapStones;
     }
 
     private void Update()
@@ -56,10 +58,14 @@ public class Core : MonoBehaviour
 
     private void SwapStones(int i1, int j1, int i2, int j2)
     {
+        PrintGrid("Before Swap");
+
         int tempPosition = _board[i1][j1];
 
-        _board[i1][j1] = _board[i1][j2];
-        _board[i1][j2] = tempPosition;
+        _board[i1][j1] = _board[i2][j2];
+        _board[i2][j2] = tempPosition;
+
+        PrintGrid("After Swap");
     }
 
     private void PrintGrid(string name)

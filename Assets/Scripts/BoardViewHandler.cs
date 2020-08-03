@@ -52,8 +52,8 @@ public class BoardViewHandler : MonoBehaviour
             {
                 Debug.Log("Peças podem ser trocadas");
 
+                OnSwap.Invoke(_selectedStones[0].PosX, _selectedStones[0].PosY, _selectedStones[1].PosX, _selectedStones[1].PosY);
                 DoSwap();
-                //OnSwap(_selectedStones[0].PosX, _selectedStones[0].PosY, _selectedStones[0].PosX, _selectedStones[0].PosY);
                 ClearSelectedStones();
             }
             else
