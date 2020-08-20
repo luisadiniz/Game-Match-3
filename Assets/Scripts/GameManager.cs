@@ -4,9 +4,8 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    [SerializeField]private BoardViewHandler _boardView;
     private Core _core;
-    private BoardViewHandler _boardView;
-    private 
 
     void Start()
     {
