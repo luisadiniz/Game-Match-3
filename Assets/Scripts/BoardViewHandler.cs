@@ -20,13 +20,15 @@ public class BoardViewHandler : MonoBehaviour
         _selectedStones = new List<StoneView>();
     }
 
-    public void PopulateBoard(List<List<int>> board, int width, int height)
+    public void PopulateBoard(List<List<int>> board)
     {
-        for (int i = 0; i < height; i++)
+        for (int i = 0; i < board.Count; i++)
         {
             GameObject newStoneContainer = Instantiate(_stoneContainerPrefab, _board);
 
-            for (int j = 0; j < width; j++)
+            List<int> row = board[i];
+
+            for (int j = 0; j < row.Count; j++)
             {
                 GameObject newStone = Instantiate(_stonePrefab, newStoneContainer.transform);
 

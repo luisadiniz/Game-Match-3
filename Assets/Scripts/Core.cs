@@ -1,49 +1,34 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-public class Core : MonoBehaviour
+public class Core
 {
-    [SerializeField] private BoardViewHandler _boardView;
-
-    int width = 7;
-    int height = 5;
-    private List<List<int>> _board;
-
+    const int WIDTH = 7;
+    const int HEIGHT = 5;
+    private List<List<int>> _board = new List<List<int>>();
     private List<Vector2> _initialMatchedStonePosition = new List<Vector2>();
     private List<Vector2> _finalMatchedStonePosition = new List<Vector2>();
 
-    private void Start()
-    {
-        _board = new List<List<int>>();
-        _boardView.PopulateBoard(CreateBoard(), width, height);
-
-        _boardView.OnSwap += SwapStones;
-    }
-
-    private void Update()
-    {
-        //CheckCombinations();
-    }
-
+    
     public List<List<int>> CreateBoard()
     {
-        for (int i = 0; i < height; i++)
+        for (int i = 0; i < HEIGHT; i++)
         {
             _board.Add(new List<int>());
 
-            for (int j = 0; j < width; j++)
+            for (int j = 0; j < WIDTH; j++)
             {
                 _board[i].Add(Random.Range(0,5));
             }
         }
 
         string board = "";
-        for (int i = 0; i < height; i++)
+        for (int i = 0; i < HEIGHT; i++)
         {
-            for (int j = 0; j < width; j++)
+            for (int j = 0; j < WIDTH; j++)
             {
                 board += $"[{_board[i][j]}]";
-                if (j < width - 1)
+                if (j < WIDTH - 1)
                 {
                     board += ",";
                 }
@@ -120,7 +105,7 @@ public class Core : MonoBehaviour
 
         }
 
-        for (int j = 0; j < width; j++)
+        for (int j = 0; j < WIDTH; j++)
         {
             for (int i = 0; i < _board.Count; i++)
             {
@@ -162,7 +147,7 @@ public class Core : MonoBehaviour
 
             GetInitialMatchedStonesPosition();
 
-            for (int i = 0; i < height; i++)
+            for (int i = 0; i < HEIGHT; i++)
             {
                 UpdateGridValues();
             }
@@ -188,7 +173,7 @@ public class Core : MonoBehaviour
 
     private void GetInitialMatchedStonesPosition()
     {
-        for (int j = 0; j < width; j++)
+        for (int j = 0; j < WIDTH; j++)
         {
             for (int i = _board.Count - 1; i >= 0; i--)
             {
@@ -202,7 +187,7 @@ public class Core : MonoBehaviour
                   
     private void UpdateGridValues()
     {
-        for (int j = 0; j < width; j++)
+        for (int j = 0; j < WIDTH; j++)
         {
             for (int i = _board.Count - 1; i >= 0 ; i--)
             {
@@ -216,7 +201,7 @@ public class Core : MonoBehaviour
 
     private void CreateNewStones()
     {
-        for (int j = 0; j < width; j++)
+        for (int j = 0; j < WIDTH; j++)
         {
             for (int i = 0; i < _board.Count; i++)
             {
