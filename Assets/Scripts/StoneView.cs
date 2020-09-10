@@ -11,7 +11,7 @@ public class StoneView : MonoBehaviour
 
     public int PosX { get; set; }
     public int PosY { get; set; }
-    public Action<StoneView> OnStoneSelected;
+    public Action<StoneView> OnClick;
 
     public void SetColour(Sprite colour)
     {
@@ -22,7 +22,7 @@ public class StoneView : MonoBehaviour
     {
         _image.color = Color.gray;
 
-        OnStoneSelected?.Invoke(stone);
+        OnClick?.Invoke(stone);
     }
 
     public void OnUnselectStone()

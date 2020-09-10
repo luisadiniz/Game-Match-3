@@ -41,7 +41,7 @@ public class Core
         return _board;
     }
 
-    private void SwapStones(int i1, int j1, int i2, int j2)
+    public void SwapStones(int i1, int j1, int i2, int j2)
     {
         PrintGrid("Before Swap");
 
@@ -53,7 +53,7 @@ public class Core
         PrintGrid("After Swap");
     }
 
-    private void PrintGrid(string name)
+    public void PrintGrid(string name)
     {
         string grid = "";
         for (int i = 0; i < _board.Count; i++)
@@ -72,7 +72,7 @@ public class Core
         Debug.Log($"Grid {name}: \n" + grid);
     }
 
-    private List<Vector2> GetCombinations()
+    public List<Vector2> GetCombinations()
     {
         List<Vector2> matchedStones = new List<Vector2>();
         List<Vector2> allMatchedStones = new List<Vector2>();
@@ -134,33 +134,7 @@ public class Core
         return allMatchedStones;
     }
 
-    private void CheckCombinations()
-    {
-        List<Vector2> allMatchedStones = GetCombinations();
-
-        PrintGrid("Combinations");
-
-        if (allMatchedStones.Count > 0)
-        {
-            SetMatches(allMatchedStones);
-            PrintGrid("Set Matches");
-
-            GetInitialMatchedStonesPosition();
-
-            for (int i = 0; i < HEIGHT; i++)
-            {
-                UpdateGridValues();
-            }
-            PrintGrid("Updated After Combinations");
-
-            CreateNewStones();
-            PrintGrid("With New Stones");
-        }
-
-        PrintLists();
-    }
-
-    private void SetMatches(List<Vector2> allMatchedStones)
+    public void SetMatches(List<Vector2> allMatchedStones)
     {
         for (int e = 0; e < allMatchedStones.Count; e++)
         {
@@ -171,7 +145,7 @@ public class Core
         }
     }
 
-    private void GetInitialMatchedStonesPosition()
+    public void GetInitialMatchedStonesPosition()
     {
         for (int j = 0; j < WIDTH; j++)
         {
@@ -185,7 +159,7 @@ public class Core
         }
     }
                   
-    private void UpdateGridValues()
+    public void UpdateGridValues()
     {
         for (int j = 0; j < WIDTH; j++)
         {
@@ -199,7 +173,7 @@ public class Core
         }
     }
 
-    private void CreateNewStones()
+    public void CreateNewStones()
     {
         for (int j = 0; j < WIDTH; j++)
         {
@@ -215,16 +189,16 @@ public class Core
         }
     }
 
-    private void PrintLists()
+    public void PrintLists()
     {
         for (int i = 0; i < _initialMatchedStonePosition.Count; i++)
         {
-            Debug.LogError("Inicial: " + _initialMatchedStonePosition[i]);
+            Debug.Log("Inicial: " + _initialMatchedStonePosition[i]);
         }
 
         for (int i = 0; i < _finalMatchedStonePosition.Count; i++)
         {
-            Debug.LogError("Final: " + _finalMatchedStonePosition[i]);
+            Debug.Log("Final: " + _finalMatchedStonePosition[i]);
         }
     }
 }

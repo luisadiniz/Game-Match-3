@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class BoardViewHandler : MonoBehaviour
 {
-    public Action<int, int, int, int> OnSwap;
+    public Action<int, int, int, int> OnStonesSelected;
 
     [SerializeField] private List<Sprite> _spritesList;
     [SerializeField] private GameObject _stonePrefab;
@@ -36,12 +36,12 @@ public class BoardViewHandler : MonoBehaviour
                 stoneScript.SetColour(_spritesList[board[i][j]]);
                 stoneScript.PosX = i;
                 stoneScript.PosY = j;
-                stoneScript.OnStoneSelected += OnSelectedStones;
+                stoneScript.OnClick += OnStoneClick;
             }
         }
     }
 
-    private void OnSelectedStones(StoneView stone)
+    public void OnStoneClick(StoneView stone)
     {
         if (_selectedStones.Count == 0 || _selectedStones.Count == 1)
         {
@@ -52,10 +52,8 @@ public class BoardViewHandler : MonoBehaviour
         {
             if (_selectedStones[0].PosX == _selectedStones[1].PosX && (Mathf.Abs(_selectedStones[0].PosY - _selectedStones[1].PosY) == 1) || _selectedStones[0].PosY == _selectedStones[1].PosY && (Mathf.Abs(_selectedStones[0].PosX - _selectedStones[1].PosX) == 1))
             {
-                Debug.Log("Peças podem ser trocadas");
-
-                OnSwap.Invoke(_selectedStones[0].PosX, _selectedStones[0].PosY, _selectedStones[1].PosX, _selectedStones[1].PosY);
-                DoSwap();
+                OnStonesSelected?.Invoke(_selectedStones[0].PosX, _selectedStones[0].PosY, _selectedStones[1].PosX, _selectedStones[1].PosY);
+                
                 ClearSelectedStones();
             }
             else
