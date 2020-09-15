@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BoardViewHandler : MonoBehaviour
 {
@@ -13,11 +14,13 @@ public class BoardViewHandler : MonoBehaviour
     [SerializeField] private GameObject _stoneContainerPrefab;
     [SerializeField] private Transform _board;
 
+    private List<List<StoneView>> _boardViewList;
     private List<StoneView> _selectedStones;
 
     private void Awake()
     {
         _selectedStones = new List<StoneView>();
+        _boardViewList = new List<List<StoneView>>();
     }
 
     public void PopulateBoard(List<List<int>> board)
@@ -28,6 +31,8 @@ public class BoardViewHandler : MonoBehaviour
 
             List<int> row = board[i];
 
+            _boardViewList.Add(new List<StoneView>());
+
             for (int j = 0; j < row.Count; j++)
             {
                 GameObject newStone = Instantiate(_stonePrefab, newStoneContainer.transform);
@@ -37,6 +42,8 @@ public class BoardViewHandler : MonoBehaviour
                 stoneScript.PosX = i;
                 stoneScript.PosY = j;
                 stoneScript.OnClick += OnStoneClick;
+
+                _boardViewList[i].Add(stoneScript);
             }
         }
     }
@@ -94,5 +101,20 @@ public class BoardViewHandler : MonoBehaviour
             _selectedStones[i].OnUnselectStone();
         }
         _selectedStones.Clear();
+    }
+
+    public void DestroyMatchedStones(List<Vector2> allMatchedStones)
+    {
+        for (int i = 0; i < _boardViewList.Count; i++)
+        {
+            for (int j = 0; j < _boardViewList[i].Count; j++)
+            {
+                for (int a = 0; a < allMatchedStones.Count; a++)
+                {
+                    Image stoneImage = _boardViewList[(int)allMatchedStones[a].x][(int)allMatchedStones[a].y].gameObject.GetComponent<Image>();
+                    stoneImage.enabled = false;
+                }
+            }
+        }
     }
 }

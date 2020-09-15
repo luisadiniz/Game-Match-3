@@ -35,17 +35,21 @@ public class GameManager : MonoBehaviour
         {
             //seta os matches para -1
             _core.SetMatches(allMatchedStones);
+
             _core.PrintGrid("Set Matches");
 
             // pega a posição inicial das pedras e armazena numa lista
             _core.GetInitialMatchedStonesPosition();
 
+            _boardView.DestroyMatchedStones(allMatchedStones);
+            //faz os -1 se moverem para o topo
             for (int i = 0; i < 5; i++)
             {
                 _core.UpdateGridValues();
             }
             _core.PrintGrid("Updated After Combinations");
 
+            //onde tem -1 são criadas novas pedras
             _core.CreateNewStones();
             _core.PrintGrid("With New Stones");
         }
